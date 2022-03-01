@@ -31,8 +31,10 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with: 
           root_file: main.tex
-      - name: Checkout gh-pages branch
+      - name: Setup gh-pages branch
         run: |
+          git config --global user.name $user_name
+          git config --global user.email $user_email
           cp ./main.pdf /tmp/main.pdf
           git switch --orphan gh-pages
           cp /tmp/main.pdf ./Ameya_Laad_CV.pdf
