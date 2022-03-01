@@ -31,3 +31,11 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with: 
           root_file: main.tex
+      - name: Checkout gh-pages branch
+        run: |
+          cp ./main.pdf /tmp/main.pdf
+          git switch --orphan gh-pages
+          cp /tmp/main.pdf ./Ameya_Laad_CV.pdf
+          git add ./Ameya_Laad_CV.pdf
+          git commit -m "Commiting generated pdf"
+          git push -u origin gh-pages
