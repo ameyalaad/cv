@@ -37,6 +37,7 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           cp ./main.pdf /tmp/main.pdf
           git switch --orphan gh-pages
+          git pull
           cp /tmp/main.pdf ./Ameya_Laad_CV.pdf
           git add ./Ameya_Laad_CV.pdf
           git commit -m "Commiting generated pdf"
