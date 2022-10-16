@@ -31,14 +31,27 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with: 
           root_file: main.tex
+      - name: Upload compiled pdf as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ameya_Laad_CV.pdf
+          path: ./main.pdf
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Download compiled artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Ameya_Laad_CV.pdf
+          path: ./Ameya_Laad_CV.pdf
       - name: Setup gh-pages branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          cp ./main.pdf /tmp/main.pdf
           git switch --orphan gh-pages
-          git pull
-          cp /tmp/main.pdf ./Ameya_Laad_CV.pdf
           git add ./Ameya_Laad_CV.pdf
           git commit -m "Commiting generated pdf"
-          git push -u origin gh-pages
+          git push -u -f origin gh-pages
